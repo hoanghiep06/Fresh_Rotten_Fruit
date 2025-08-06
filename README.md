@@ -28,6 +28,6 @@ Dataset đã được convert thành NumPy arrays (`.npy`) gồm:
 # Load dữ liệu numpy
 import numpy as np
 
-X = np.load("X.npy")
-y_fruit = np.load("y_fruit.npy")
-y_freshness = np.load("y_freshness.npy")
+X = np.load("Fresh_Rotten_Fruit_Dataset/X.npy")
+y_fruit = np.load("Fresh_Rotten_Fruit_Dataset/y_fruit.npy")
+y_freshness = np.load("Fresh_Rotten_Fruit_Dataset/y_freshness.npy")
