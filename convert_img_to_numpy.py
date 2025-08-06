@@ -3,7 +3,7 @@ import os
 import cv2
 
 
-root_dir = "F:/Download/Dataset"
+root_dir = "./Dataset"
 
 X = []
 y_freshness = []
@@ -66,3 +66,4 @@ y_fruit = np.array(y_fruit)
 np.save('X.npy', X)
 np.save('y_freshness.npy', y_freshness)
 np.save('y_fruit.npy', y_fruit)
+
