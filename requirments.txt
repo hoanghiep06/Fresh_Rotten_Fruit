@@ -1,0 +1,26 @@
+# Fruit Freshness Detection App - Requirements
+# Core dependencies with specific versions for stability
+
+# GUI Framework
+PyQt5==5.15.10
+
+# Computer Vision & Image Processing
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+
+# Scientific Computing
+numpy==1.24.3
+
+# Machine Learning
+tensorflow==2.13.1
+
+# Additional dependencies that might be needed
+Pillow==10.0.1
+matplotlib==3.7.2
+
+# For better compatibility on Windows
+pywin32==306; sys_platform == "win32"
+
+# Alternative lightweight options (uncomment if needed):
+# tensorflow-cpu==2.13.1  # Use this instead of tensorflow for CPU-only (much smaller)
+# opencv-python-headless==4.8.1.78  # Use this for server environments without GUI
