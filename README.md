@@ -1,8 +1,10 @@
 🍎 Fresh_Rotten_Fruit Detection
+
 A real-time fruit freshness detection application powered by EfficientNet-B0 and built with PyQt5. This intelligent app analyzes fruits through webcam feed or uploaded images to determine both the type of fruit and its freshness level with high accuracy.
 
 
 ✨ Features
+
 Real-time Detection: Live webcam feed with instant fruit analysis
 Image Upload: Upload and analyze fruit images from your device
 Dual Classification: Identifies both fruit type and freshness level
