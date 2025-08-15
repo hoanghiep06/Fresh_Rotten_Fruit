@@ -1,49 +1,168 @@
-# Fruit Quality Classification
+🍎 Fresh_Rotten_Fruit Detection
+A real-time fruit freshness detection application powered by EfficientNet-B0 and built with PyQt5. This intelligent app analyzes fruits through webcam feed or uploaded images to determine both the type of fruit and its freshness level with high accuracy.
 
-Dự án phân loại độ tươi và loại trái cây bằng ảnh đầu vào. Ảnh đã được xử lý trước (resize, chuẩn hóa) và lưu thành `.npy` để tối ưu tốc độ load khi huấn luyện.
 
----
+✨ Features
+Real-time Detection: Live webcam feed with instant fruit analysis
+Image Upload: Upload and analyze fruit images from your device
+Dual Classification: Identifies both fruit type and freshness level
+Confidence Scoring: Shows prediction confidence for reliable results
+Smart Display Logic: Results persist for 0.5s after fruit is removed
+User-friendly Interface: Clean PyQt5 GUI with visual feedback
 
-## Dataset
+🧠 Model Architecture
+This application uses EfficientNet-B0 as the backbone architecture:
 
-Dataset đã được convert thành NumPy arrays (`.npy`) gồm:
+Base Model: EfficientNet-B0 (pre-trained on ImageNet)
+Input Size: 128×128×3 (optimized for real-time performance)
+Multi-task Learning: Dual-head architecture for simultaneous fruit type and freshness classification
+Preprocessing: EfficientNet-specific preprocessing pipeline
+Performance: Optimized balance between accuracy and inference speed
 
-- `X.npy`: ảnh đầu vào (đã resize(128, 128)))
-- `y_fruit.npy`: nhãn loại trái cây (ví dụ: `orange`, `apple`,...)
-- `y_freshness.npy`: nhãn độ tươi (`fresh`, `rotten`)
-- `id2fruit_label.json`: 1 dictionary chứa key là id được mã hóa tương ứng với value là tên trái cây
-- `freshness_id2label.json`: 1 dictionary chứa key là id được mã hóa tương ứng với value là mức độ của trái cây
+Model Details
 
-📁 Dataset lưu tại:  
-[🔗 Google Drive Ảnh](https://drive.google.com/drive/folders/1RzHeizofJqLSi4i-M5FX7USWiNiC3EKh?usp=drive_link)
-[🔗 Google Drive Numpy](https://drive.google.com/drive/folders/1NADy3RRIFPnQZLmsVBsf_Q6QV_mPqe51?usp=sharing)
+Fruit Classification: Identifies various fruit types (apple, banana, orange, etc.)
+Freshness Detection: Classifies freshness levels (fresh, rotten)
+Confidence Threshold: 60% minimum confidence for reliable predictions
 
----
+🎯 How It Works
 
-## Sử dụng trong Google Colab
+Camera Mode: Point your webcam at a fruit within the green rectangle
+Image Mode: Upload a fruit image for instant analysis
+EfficientNet Processing: The model analyzes the 128×128 crop using EfficientNet-B0
+Dual Classification: Simultaneous fruit type and freshness level prediction
+Results: See fruit type, freshness level, and confidence scores
 
-```python
-!pip install -q gdown
+🚀 Quick Start
+Prerequisites
 
-!gdown --folder --remaining-ok https://drive.google.com/drive/folders/1NADy3RRIFPnQZLmsVBsf_Q6QV_mPqe51
+Python 3.8 - 3.11
+Webcam (for real-time detection)
 
-import numpy as np
-from collections import Counter
-import json
+Installation
 
-X = np.load("Fresh_Rotten_Fruit_Dataset/X.npy")
-y_fruit = np.load("Fresh_Rotten_Fruit_Dataset/y_fruit.npy")
-y_freshness = np.load("Fresh_Rotten_Fruit_Dataset/y_freshness.npy")
+Clone the repository
+bashgit clone [https://github.com/](https://github.com/hoanghiep06/Fresh_Rotten_Fruit.git)
+cd Fresh_Rotten_Fruit
 
-with open('/content/Fresh_Rotten_Fruit_Dataset/id2fruit_label.json', 'r') as f:
-    id2fruit_label = json.load(f)
-with open('/content/Fresh_Rotten_Fruit_Dataset/freshness_id2label.json', 'r') as f:
-    freshness_id2label = json.load(f)
+Install dependencies
+bashpip install -r requirements.txt
 
-id2fruit_label = {int(k): v for k, v in id2fruit_label.items()}
-freshness_id2label = {int(k): v for k, v in freshness_id2label.items()}
+Prepare model files (place in the same directory as app_pyqt5.py)
 
-fruit_counts = Counter(y_fruit)
-fruit_names = [id2fruit_label[i] for i in sorted(fruit_counts.keys())]
-fruit_values = [fruit_counts[i] for i in sorted(fruit_counts.keys())]
+fruit_freshness_model.h5 - Your trained TensorFlow model
+id2fruit_label.json - Fruit type labels mapping
+freshness_id2label.json - Freshness level labels mapping
 
+
+Run the application
+bashpython app_pyqt5.py
+
+
+📁 Project Structure
+Fresh_Rotten_Fruit/
+├── app_pyqt5.py              # Main application file
+├── requirements.txt          # Python dependencies
+├── fruit_freshness_model.h5  # EfficientNet-B0 based model (not included)
+├── id2fruit_label.json       # Fruit type labels mapping
+├── freshness_id2label.json   # Freshness level labels mapping
+├── README.md                 # This file
+├── Training.ipynb            # Fine-tuning model
+└── convert_img_to_numpy.py   # Convert image that optimise time to read image whenever using for training   
+       
+🔧 Configuration
+Model Requirements
+The EfficientNet-B0 based model should:
+
+Accept input shape: (batch_size, 128, 128, 3)
+Use EfficientNet preprocessing: tf.keras.applications.efficientnet.preprocess_input
+Return two outputs: fruit classification and freshness classification
+Be saved in TensorFlow/Keras .h5 format
+Trained with transfer learning from ImageNet pretrained EfficientNet-B0
+
+Label Files Format
+id2fruit_label.json:
+json{
+    "apple": 0,
+    "banana": 1, 
+    "bittergourd": 2, 
+    "capsicum": 3, 
+    "orange": 4, 
+    "tomato": 5
+}
+
+freshness_id2label.json:
+json{
+    "fresh": 0,
+    "stale": 1
+}
+
+Adjustable Parameters
+In the code, you can modify:
+
+MIN_CONFIDENCE = 0.6 - Minimum confidence threshold
+CROP_SIZE = (300, 200) - Detection rectangle size
+Display timers and colors
+
+🎮 Usage
+Camera Mode
+
+Click "Bật Camera" to start webcam
+Place fruit in the green rectangle area
+Wait for detection results with confidence scores
+Click "Tắt Camera" to stop
+
+Image Mode
+
+Click "Tải ảnh lên" to upload an image
+Select a fruit image from your device
+View instant analysis results
+Upload another image or switch to camera mode
+
+🛠️ Technical Details
+Architecture
+
+GUI Framework: PyQt5 for cross-platform interface
+Computer Vision: OpenCV for image processing and webcam handling
+Deep Learning: EfficientNet-B0 via TensorFlow/Keras for fruit classification
+Threading: Separate thread for ML inference to prevent UI blocking
+Preprocessing: EfficientNet-specific image preprocessing pipeline
+
+Performance Features
+
+Threaded Inference: ML predictions run in background thread
+Frame Skipping: Processes every 10th frame to maintain smooth video
+Confidence Filtering: Only shows high-confidence predictions
+Memory Management: Queue-based frame processing with size limits
+
+🔍 Troubleshooting
+Common Issues
+Camera not detected:
+
+Ensure your webcam is connected and not used by other apps
+Try different camera indices if you have multiple cameras
+
+Model loading fails:
+
+Check that all model files are in the correct directory
+Verify model file integrity and format
+
+Low detection accuracy:
+
+Ensure good lighting conditions
+Place fruit clearly within the detection rectangle
+Check if your model was trained on similar data
+
+Performance issues:
+
+Consider using tensorflow-cpu instead of full TensorFlow
+Reduce frame processing frequency by changing the modulo value
+
+
+🙏 Acknowledgments
+
+TensorFlow team for the machine learning framework
+OpenCV community for computer vision tools
+PyQt5 developers for the GUI framework
+
+⭐ If you found this project helpful, please give it a star!
