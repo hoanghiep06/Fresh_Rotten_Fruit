@@ -6,10 +6,15 @@ A real-time fruit freshness detection application powered by EfficientNet-B0 and
 ✨ Features
 
 Real-time Detection: Live webcam feed with instant fruit analysis
+
 Image Upload: Upload and analyze fruit images from your device
+
 Dual Classification: Identifies both fruit type and freshness level
+
 Confidence Scoring: Shows prediction confidence for reliable results
+
 Smart Display Logic: Results persist for 0.5s after fruit is removed
+
 User-friendly Interface: Clean PyQt5 GUI with visual feedback
 
 🧠 Model Architecture
@@ -44,7 +49,7 @@ Webcam (for real-time detection)
 Installation
 
 Clone the repository
-bashgit clone [https://github.com/](https://github.com/hoanghiep06/Fresh_Rotten_Fruit.git)
+bashgit clone [my_project](https://github.com/hoanghiep06/Fresh_Rotten_Fruit.git)
 cd Fresh_Rotten_Fruit
 
 Install dependencies
