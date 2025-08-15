@@ -3,6 +3,7 @@
 A real-time fruit freshness detection application powered by EfficientNet-B0 and built with PyQt5. This intelligent app analyzes fruits through webcam feed or uploaded images to determine both the type of fruit and its freshness level with high accuracy.
 
 
+
 ✨ Features
 
 Real-time Detection: Live webcam feed with instant fruit analysis
@@ -17,20 +18,29 @@ Smart Display Logic: Results persist for 0.5s after fruit is removed
 
 User-friendly Interface: Clean PyQt5 GUI with visual feedback
 
+
 🧠 Model Architecture
 This application uses EfficientNet-B0 as the backbone architecture:
 
 Base Model: EfficientNet-B0 (pre-trained on ImageNet)
+
 Input Size: 128×128×3 (optimized for real-time performance)
+
 Multi-task Learning: Dual-head architecture for simultaneous fruit type and freshness classification
+
 Preprocessing: EfficientNet-specific preprocessing pipeline
+
 Performance: Optimized balance between accuracy and inference speed
+
 
 Model Details
 
 Fruit Classification: Identifies various fruit types (apple, banana, orange, etc.)
+
 Freshness Detection: Classifies freshness levels (fresh, rotten)
+
 Confidence Threshold: 60% minimum confidence for reliable predictions
+
 
 🎯 How It Works
 
