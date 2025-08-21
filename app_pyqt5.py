@@ -23,7 +23,7 @@ class PredictionThread(QThread):
         self.model = None
         self.id2fruit_label = {}
         self.freshness_id2label = {}
-        self.IMG_SIZE = (128, 128)
+        self.IMG_SIZE = (224, 224)
         self.CROP_SIZE = (300, 200)
 
     def load_model(self):
@@ -381,7 +381,7 @@ class WebcamApp(QWidget):
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Border
 
-        # Thêm text hướng dẫn, xuất hiện trong webcam, không có trong upload ảnh
+        # Thêm text hướng dẫn
         if guide_text is True:
             cv2.putText(frame, "Dat trai cay vao day", (x1, y1 - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
