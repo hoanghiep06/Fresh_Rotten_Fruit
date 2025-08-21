@@ -30,7 +30,7 @@ class PredictionThread(QThread):
 
         try:
             import tensorflow as tf
-            self.model = tf.keras.models.load_model('fruit_freshness_model.h5')
+            self.model = tf.keras.models.load_model('./fruit_freshness_model.h5')
 
             with open('./id2fruit_label.json', 'r') as f:
                 id2fruit_label = json.load(f)
@@ -301,7 +301,9 @@ class WebcamApp(QWidget):
 
             self.loaded_image_processed = self.add_center_rectangle(
                 self.loaded_image.copy(),
-                self.prediction_thread.CROP_SIZE
+                (new_w, new_h),
+                color=(144, 238, 144),
+                guide_text=False
             )
 
             self.display_image(self.loaded_image_processed)
@@ -324,14 +326,14 @@ class WebcamApp(QWidget):
 
         try:
             h, w = self.loaded_image.shape[:2]
-            crop_w, crop_h = self.prediction_thread.CROP_SIZE
+            # crop_w, crop_h = self.prediction_thread.CROP_SIZE
+            #
+            # x1 = w // 2 - crop_w // 2
+            # y1 = h // 2 - crop_h // 2
+            # x2 = x1 + crop_w
+            # y2 = y1 + crop_h
 
-            x1 = w // 2 - crop_w // 2
-            y1 = h // 2 - crop_h // 2
-            x2 = x1 + crop_w
-            y2 = y1 + crop_h
-
-            center_crop = self.loaded_image[y1:y2, x1:x2].copy()
+            center_crop = self.loaded_image[:, :].copy()
 
             fruit, freshness, fruit_conf, fresh_conf = self.prediction_thread.predict(center_crop)
 
@@ -364,7 +366,7 @@ class WebcamApp(QWidget):
         qt_img = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
         self.image_label.setPixmap(QPixmap.fromImage(qt_img))
 
-    def add_center_rectangle(self, frame, crop_size=(300, 200), color=(0, 255, 100), alpha=0.15):
+    def add_center_rectangle(self, frame, crop_size=(300, 200), color=(0, 255, 100), alpha=0.15, guide_text=True):
         h, w, _ = frame.shape
         # Tính toán vị trí center
         x1 = w // 2 - crop_size[0] // 2
@@ -379,9 +381,10 @@ class WebcamApp(QWidget):
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Border
 
-        # Thêm text hướng dẫn
-        cv2.putText(frame, "Dat trai cay vao day", (x1, y1 - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+        # Thêm text hướng dẫn, xuất hiện trong webcam, không có trong upload ảnh
+        if guide_text is True:
+            cv2.putText(frame, "Dat trai cay vao day", (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
         return frame
 
