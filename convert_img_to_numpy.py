@@ -9,7 +9,7 @@ X = []
 y_freshness = []
 y_fruit = []
 fruit_set = set()
-
+IMAGE_SIZE = (224, 224)
 
 for folder in os.listdir(root_dir):
     if folder.endswith(".txt"):
@@ -53,7 +53,7 @@ for folder in os.listdir(root_dir):
             print("Không đọc được ảnh", img_path)
             continue
 
-        img = cv2.resize(img, (128, 128))
+        img = cv2.resize(img, IMAGE_SIZE)
         X.append(img)
         y_freshness.append(freshness_label)
         y_fruit.append(fruit_label)
@@ -66,4 +66,5 @@ y_fruit = np.array(y_fruit)
 np.save('X.npy', X)
 np.save('y_freshness.npy', y_freshness)
 np.save('y_fruit.npy', y_fruit)
+
 
