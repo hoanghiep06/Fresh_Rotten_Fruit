@@ -18,7 +18,7 @@ A real-time fruit freshness detection application powered by **EfficientNet-B0**
 This application uses **EfficientNet-B0** as the backbone architecture:
 
 - **Base Model**: EfficientNet-B0 (pre-trained on ImageNet)
-- **Input Size**: 128×128×3 (optimized for real-time performance)
+- **Input Size**: 224×224×3 (optimized for real-time performance)
 - **Multi-task Learning**: Dual-head architecture for simultaneous fruit type and freshness classification
 - **Preprocessing**: EfficientNet-specific preprocessing pipeline
 - **Performance**: Optimized balance between accuracy and inference speed
@@ -86,7 +86,7 @@ Fresh_Rotten_Fruit/
 ### Model Requirements
 
 The EfficientNet-B0 based model should:
-- Accept input shape: `(batch_size, 128, 128, 3)`
+- Accept input shape: `(batch_size, 224, 224, 3)`
 - Use EfficientNet preprocessing: `tf.keras.applications.efficientnet.preprocess_input`
 - Return two outputs: fruit classification and freshness classification
 - Be saved in TensorFlow/Keras `.h5` format
@@ -150,7 +150,7 @@ In the code, you can modify:
 - **Frame Skipping**: Processes every 10th frame to maintain 30 FPS video
 - **Confidence Filtering**: Only displays predictions above 60% confidence
 - **Memory Management**: Queue-based frame processing with size limits
-- **Input Optimization**: 128×128 input size for fast processing
+- **Input Optimization**: 224×224 input size for fast processing
 
 ## 🔍 Troubleshooting
 
