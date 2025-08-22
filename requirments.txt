@@ -1,7 +1,9 @@
 tensorflow==2.19.0 
 numpy==2.0.2
 opencv-python==4.10.0
+keras==3.10.0
 PyQt5==5.15.11
 PyQt5-sip==12.17.0
 PyQt5-Qt5==5.15.2
+
 
